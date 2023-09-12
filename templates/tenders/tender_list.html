@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+Total amount: {{ total_amount }}
+
+{% for tender in tenders %}
+  <li>{{ tender.tender_id }}</li>
+  <ul>
+    <li>{{ tender.date_modified }}</li>
+    <li>{{ tender.amount }}</li>
+  </ul>
+{% endfor %}
+{% endblock %}
+
+
