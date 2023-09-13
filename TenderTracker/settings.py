@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(find_dotenv())
 
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = True
 
@@ -99,3 +99,4 @@ LOGIN_REDIRECT_URL = "/tenders/"
 
 TENDER_LIST_URL = "https://public.api.openprocurement.org/api/0/tenders?descending=1"
 SINGLE_TENDER_URL = "https://public.api.openprocurement.org/api/0/tenders/"
+NUBER_OF_TENDERS_TO_DISPLAY = int(os.environ.get("NUMBER_OF_TENDERS_TO_DISPLAY", "10"))

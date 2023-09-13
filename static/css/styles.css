@@ -7,3 +7,6 @@ table.table th.tender-description {
 .navbar {
   background-color: #DEDBDB;
 }
+.custom-margin {
+    margin-left: 20px;
+}

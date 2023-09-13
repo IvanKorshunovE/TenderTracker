@@ -1,3 +1,4 @@
+from decimal import Decimal
 from abc import ABC, abstractmethod
 
 import requests
@@ -56,6 +57,12 @@ class ReturnCompleteTenders:
         return self.id_returner.get_id_list()
 
     @staticmethod
+    def float_to_decimal(number: float) -> Decimal:
+        string_number = str(number)
+        decimal_number = Decimal(string_number)
+        return decimal_number
+
+    @staticmethod
     def __fetch_data_from_tender(tender: dict) -> dict:
         tender = tender.get("data")
         return tender
@@ -66,7 +73,12 @@ class ReturnCompleteTenders:
 
     @staticmethod
     def __fetch_amount(tender: dict):
-        return tender.get("value").get("amount")
+        value = tender.get("value")
+        amount = None
+        if value:
+            amount = value.get("amount")
+            amount = ReturnCompleteTenders.float_to_decimal(amount)
+        return amount
 
     @staticmethod
     def __fetch_date_last_modified(tender: dict):

@@ -30,11 +30,6 @@
     {% endif %}
     <div class="container-fluid">
       <div class="row">
-{#        <div class="col-sm-1">#}
-{#          {% block sidebar %}#}
-{#          {% include "includes/sidebar.html" %}#}
-{#          {% endblock %}#}
-{#        </div>#}
         <div class="col-sm-12 ">
           {% if messages %}
           {% for message in messages %}
@@ -44,9 +39,6 @@
           {% endfor %}
           {% endif %}
           {% block content %}{% endblock %}
-{#          {% block pagination %}#}
-{#          {% include "includes/pagination.html" %}#}
-{#          {% endblock %}#}
         </div>
       </div>
     </div>

@@ -13,6 +13,6 @@ def custom_root_redirect(request):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("tenders/", include("tenders.urls", namespace="tenders")),
-    path("auth/", include("django.contrib.auth.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("", custom_root_redirect, name="root"),
 ]
