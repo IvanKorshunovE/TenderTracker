@@ -55,17 +55,6 @@ class ReturnCompleteTenders:
     def get_ids(self):
         return self.id_returner.get_id_list()
 
-    def __get_tenders_from_id(self) -> list[dict]:
-        complete_tenders = []
-
-        for tender_id in self.get_ids():
-            single_tender_url = self.tender_url + tender_id
-            response = requests.get(single_tender_url)
-            single_tender = response.json()
-            complete_tenders.append(single_tender)
-
-        return complete_tenders
-
     @staticmethod
     def __fetch_data_from_tender(tender: dict) -> dict:
         tender = tender.get("data")
@@ -100,6 +89,17 @@ class ReturnCompleteTenders:
             "date_modified": last_modified,
         }
         return final_tender
+
+    def __get_tenders_from_id(self) -> list[dict]:
+        complete_tenders = []
+
+        for tender_id in self.get_ids():
+            single_tender_url = self.tender_url + tender_id
+            response = requests.get(single_tender_url)
+            single_tender = response.json()
+            complete_tenders.append(single_tender)
+
+        return complete_tenders
 
     def return_tenders(self) -> list[dict]:
         """

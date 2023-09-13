@@ -3,7 +3,9 @@ black==23.9.1
 certifi==2023.7.22
 charset-normalizer==3.2.0
 click==8.1.7
+crispy-bootstrap4==2022.1
 Django==4.2.5
+django-crispy-forms==2.0
 idna==3.4
 mypy-extensions==1.0.0
 packaging==23.1

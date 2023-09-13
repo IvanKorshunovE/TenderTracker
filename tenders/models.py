@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum, DecimalField
 
 
 class Tender(models.Model):
@@ -17,11 +18,37 @@ class Tender(models.Model):
         ]
         Tender.objects.bulk_create(tenders)
 
+    @classmethod
+    def get_all_tenders_total_amount(cls):
+        total_amount_result = Tender.objects.aggregate(
+            total_amount=Sum(
+                "amount", output_field=DecimalField()
+            )
+        )
+        total_amount = total_amount_result.get("total_amount")
+        return total_amount
+
+    @staticmethod
+    def prettify_amount(total_amount):
+        total_amount = round(total_amount, 2)
+        total_amount = "{:,.2f}".format(total_amount)
+        return total_amount
+
     def __repr__(self):
-        return self.tender_id
+        return str(self.tender_id)
 
     def __str__(self):
-        return self.description
+        return str(self.tender_id)
+
+    @property
+    def display_description(self):
+        if self.description:
+            return self.description
+        return "No description available"
+
+    @property
+    def display_amount(self):
+        return "{:,.2f}".format(self.amount)
 
     class Meta:
         ordering = ["-date_modified"]
