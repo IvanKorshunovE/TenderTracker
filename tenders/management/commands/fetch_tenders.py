@@ -27,7 +27,6 @@ class Command(BaseCommand):
             tenders = ReturnCompleteTenders(tenders_ids, SINGLE_TENDER_URL)
             tenders = tenders.return_tenders()
 
-            Tender.objects.all().delete()
             Tender.create_tenders(tenders)
         except requests.exceptions.RequestException as e:
             self.stderr.write(self.style.ERROR(f'Error: {e}'))

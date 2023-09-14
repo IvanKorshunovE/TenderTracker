@@ -10,12 +10,17 @@ class Tender(models.Model):
 
     @classmethod
     def create_tenders(cls, tender_list: list[dict]):
-        tenders = [
-            Tender(**tender_data)
-            for tender_data
-            in tender_list
-        ]
-        Tender.objects.bulk_create(tenders)
+        existing_tender_ids = Tender.objects.values_list("tender_id", flat=True)
+
+        tenders_to_create = []
+
+        for tender_data in tender_list:
+            tender_id = tender_data["tender_id"]
+
+            if tender_id not in existing_tender_ids:
+                tenders_to_create.append(Tender(**tender_data))
+
+        Tender.objects.bulk_create(tenders_to_create)
 
     @classmethod
     def get_all_tenders_total_amount(cls):
