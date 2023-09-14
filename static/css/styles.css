@@ -1,0 +1,12 @@
+body {
+    margin-top: 20px;
+}
+table.table th.tender-description {
+  width: 45%;
+}
+.navbar {
+  background-color: #DEDBDB;
+}
+.custom-margin {
+    margin-left: 20px;
+}

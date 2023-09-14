@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block header %}
+{% block total_amount %}
+  <h1 class="total-amount">Загальна сума: {{ total_amount }}</h1>
+{% endblock %}
+{% endblock %}
+
+{% block content %}
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Тендер ID</th>
+      <th scope="col" class="tender-description">Опис тендеру</th>
+      <th scope="col">Сума тендеру</th>
+      <th scope="col">Дата останнього оновлення</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% if tenders %}
+    <ul>
+      {% for tender in tenders %}
+        <tr>
+          <th scope="row">
+            {{ tender.tender_id }}
+          </th>
+          <td>{{ tender.display_description }}</td>
+          <td>{{ tender.display_amount }}</td>
+          <td>{{ tender.date_modified }}</td>
+        </tr>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="tenders-null custom-margin">Teндери відсутні</p>
+  {% endif %}
+  </tbody>
+</table>
+
+{% endblock %}
