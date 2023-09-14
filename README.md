@@ -3,16 +3,16 @@
 **Username:** demo  
 **Password:** demo
 
-Цей додаток збудований на Django, відображає список/таблицю тендерів з локальної бази даних, які в свою чергу завантажені через API.
+This application, built on Django, displays a list/table of tenders from a local database, which are at some point loaded via the API.
 
 ## Endpoints
 
-1. **/** – Головна сторінка для неавторизованих користувачів містить форму для авторизації (для швидкого тесту потрібно, щоб був користувач demo з паролем demo). Якщо ж користувач авторизований то переводимо його на /tenders. Авторизація може бути стандартною для Django.
-2. **/tenders** – (доступний лише для авторизованих користувачів) відображає список/таблицю тендерів з локальної бази даних, які в свою чергу завантажені через API.
+1. **/** – The home page for non-authorized users contains a form for authorization (a demo user with a demo password is provided for a quick test). If the user is authorized, we transfer it to /tenders.
+2. **/tenders** – (only available to authorized users) displays a list/table of tenders from a local database that have been loaded via the API at some point.
 
-## Installing / Getting started (мінімальний сетап)
+## Installing / Getting started
 
-Короткий огляд мінімального налаштування, необхідного для запуску цього додатку.
+A brief overview of the minimum configuration required to run this application.
 
 ```shell
 git clone https://github.com/IvanKorshunovE/TenderTracker
@@ -20,9 +20,9 @@ cd TenderTracker
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-Створити файл .env, заповнити його вміст
-python manage.py make_setup # робить міграції та створює демо юзера
-python manage.py fetch_tenders # фетчить таку кількість останніх тендерів, які вказані в .env файлі
+Create an .env file, fill in its contents
+python manage.py make_setup
+python manage.py fetch_tenders
 ```
 
-Після виконання цих команд сервер Django повинен бути запущений і працювати, дозволяючи вам отримати доступ і взаємодіяти з додатком.
+After running these commands, the Django server should be up and running, allowing you to access and interact with the application.

@@ -10,7 +10,6 @@ class Tender(models.Model):
 
     @classmethod
     def create_tenders(cls, tender_list: list[dict]):
-        Tender.objects.all().delete()
         tenders = [
             Tender(**tender_data)
             for tender_data
@@ -34,7 +33,7 @@ class Tender(models.Model):
             total_amount = round(total_amount, 2)
             total_amount = "{:,.2f}".format(total_amount)
             return total_amount
-        return "Неможливо визначити загальну суму"
+        return "Enable to define the amount"
 
     def __repr__(self):
         return str(self.tender_id)
@@ -46,19 +45,19 @@ class Tender(models.Model):
     def display_description(self):
         if self.description:
             return self.description
-        return "Опис не вказано"
+        return "Description is not specified"
 
     @property
     def display_amount(self):
         if self.amount:
             return "{:,.2f}".format(self.amount)
-        return "Сумму не вказано"
+        return "Amount is not specified"
 
     @property
     def display_date_modified(self):
         if self.amount:
             return self.prettify_amount(self.amount)
-        return "Останню дату модифікації не вказано"
+        return "Last update date is not specified"
 
     class Meta:
         ordering = ["-date_modified"]

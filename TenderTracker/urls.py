@@ -4,6 +4,10 @@ from django.urls import path, include
 
 
 def custom_root_redirect(request):
+    """
+    Simple redirect view, left in django core urls in order to
+    prevent dependencies
+    """
     if request.user.is_authenticated:
         return redirect("tenders:tender-list")
     else:
