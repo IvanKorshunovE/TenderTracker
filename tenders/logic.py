@@ -2,6 +2,9 @@ from decimal import Decimal
 from abc import ABC, abstractmethod
 
 import requests
+import httpx
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
 
 class IdReturner(ABC):
@@ -102,23 +105,34 @@ class ReturnCompleteTenders:
         }
         return final_tender
 
-    def __get_tenders_from_id(self) -> list[dict]:
-        complete_tenders = []
+    async def __get_single_tender(self, single_tender_url: str):
+        async with httpx.AsyncClient() as client:
+            response = await client.get(single_tender_url)
+            single_tender = response.json()
+            return single_tender
 
+    async def __get_tenders_from_id_async(self) -> list[dict]:
+        complete_tenders = []
         for tender_id in self.get_ids():
             single_tender_url = self.tender_url + tender_id
-            response = requests.get(single_tender_url)
-            single_tender = response.json()
+
+            single_tender = self.__get_single_tender(single_tender_url)
             complete_tenders.append(single_tender)
 
+        complete_tenders = await asyncio.gather(*complete_tenders)
+
         return complete_tenders
+
+    def __get_tenders_from_id_two(self):
+        return asyncio.run(self.__get_tenders_from_id_async())
 
     def return_tenders(self) -> list[dict]:
         """
         :return: list of dictionaries, where each dictionary has fields
         tender_id, description, amount, date_modified
         """
-        tenders = self.__get_tenders_from_id()
+        tenders = self.__get_tenders_from_id_two()
+
         final_tenders = []
 
         for tender in tenders:
